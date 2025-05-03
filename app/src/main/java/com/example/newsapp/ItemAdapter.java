@@ -46,7 +46,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             Detailed detailFragment = new Detailed();
             Bundle bundle = new Bundle();
             bundle.putString("title", item.getTitle());
-            bundle.putString("imageUrl", item.getImageUrl());  // Assuming URL
+            bundle.putString("imageUrl", item.getImageUrl());  // Assuming  URL
             bundle.putString("desc", item.getDescription());
             ArrayList<com.example.news.models.NewsItem> relatedNews = new ArrayList<>();
             for (com.example.news.models.NewsItem otherItem : itemList) {
