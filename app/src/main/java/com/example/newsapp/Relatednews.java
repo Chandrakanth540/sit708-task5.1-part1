@@ -12,23 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
+public class Relatednews extends RecyclerView.Adapter<Relatednews.ItemViewHolder> {
 
     private List<com.example.news.models.NewsItem> itemList;
 
     private Fragment parentFragment;
 
-    public ItemAdapter(List<com.example.news.models.NewsItem> itemList, Fragment parentFragment) {
+    public Relatednews(List<com.example.news.models.NewsItem> itemList, Fragment parentFragment) {
         this.itemList = itemList;
         this.parentFragment = parentFragment;
     }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
         return new ItemViewHolder(view);
     }
 
@@ -42,27 +41,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         Glide.with(holder.imageView.getContext())
                 .load(item.getImageUrl())  // URL of the image
                 .into(holder.imageView);  // Target ImageView
-        holder.itemView.setOnClickListener(v -> {
-            Detailed detailFragment = new Detailed();
-            Bundle bundle = new Bundle();
-            bundle.putString("title", item.getTitle());
-            bundle.putString("imageUrl", item.getImageUrl());  // Assuming URL
-            bundle.putString("desc", item.getDescription());
-            ArrayList<com.example.news.models.NewsItem> relatedNews = new ArrayList<>();
-            for (com.example.news.models.NewsItem otherItem : itemList) {
-                if (!otherItem.getTitle().equals(item.getTitle()) && relatedNews.size() < 3) {
-                    relatedNews.add(otherItem);
-                }
-            }
 
-            bundle.putSerializable("relatedNews", relatedNews);
-            detailFragment.setArguments(bundle);
-            parentFragment.requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_container, detailFragment)
-                    .addToBackStack(null)
-                    .commit();
-        });
     }
 
     @Override

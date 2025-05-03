@@ -115,6 +115,14 @@ public class Home extends Fragment {
                             bundle.putString("title", item.getTitle());
                             bundle.putString("imageUrl", item.getImageUrl());  // Assuming URL
                             bundle.putString("desc", item.getDescription());
+                            ArrayList<com.example.news.models.NewsItem> relatedNews = new ArrayList<>();
+                            for (com.example.news.models.NewsItem otherItem : relatedList) {
+                                if (!otherItem.getTitle().equals(item.getTitle()) && relatedNews.size() < 3) {
+                                    relatedNews.add(otherItem);
+                                }
+                            }
+
+                            bundle.putSerializable("relatedNews", relatedNews);
                             detailFragment.setArguments(bundle);
                             requireActivity().getSupportFragmentManager()
                                     .beginTransaction()
